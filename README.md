@@ -9,7 +9,7 @@ This is an Android application for demo-ing the Room Database library by Google.
 * Delete
 * Read Single Data
 
-<img src="https://github.com/anitaa1990/RoomDb-Sample/blob/master/media/1.png" width="200" style="max-width:100%;">   <img src="https://github.com/anitaa1990/RoomDb-Sample/blob/master/media/2.png" width="200" style="max-width:100%;">   <img src="https://github.com/anitaa1990/RoomDb-Sample/blob/master/media/3.png" width="200" style="max-width:100%;"></br>
+<img src="https://github.com/TistoW/RoomDatabase/blob/main/media/image1.png" width="200" style="max-width:100%;">   <img src="https://github.com/TistoW/RoomDatabase/blob/main/media/image2.png" width="200" style="max-width:100%;"></br>
 
 Step 1: Add following library and annotation processor to your app gradle file.
 
@@ -108,15 +108,12 @@ Sample Implementation of basic CRUD operations using ROOM
     note.title = "First Note"
     note.description = "Note Description"
 
-    // insert data
-    CompositeDisposable().add(Observable.fromCallable {
-        myDb.daoProduk().insert(note) // Insert new note
-    }.subscribeOn(Schedulers.computation())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-            // do something after data inserted
-            Log.d("respons", "data inserted")
-        })
+    CompositeDisposable().add(Observable.fromCallable { myDb.daoNote().insert(note) }
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                Log.d("respons", "data inserted")
+            })
 
 **2. Update:**
 
@@ -125,30 +122,24 @@ Sample Implementation of basic CRUD operations using ROOM
     note.title  = "Edite Titel"
     note.description = "this is the new description"
 
-    // update data
-    CompositeDisposable().add(Observable.fromCallable {
-        myDb.daoNote().update(note) // Update note
-    }.subscribeOn(Schedulers.computation())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-            // do something after data updated
-            Log.d("respons", "data updated")
-        })
+    CompositeDisposable().add(Observable.fromCallable { myDb.daoNote().update(note) }
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                Log.d("respons", "data updated")
+            })
 
 **3. Delete:**
 
     val myDb: MyDatabase = MyDatabase.getInstance(this) // call database
     val note = myDb.daoNote().getNote(1)// get note
 
-    // delete data
-    CompositeDisposable().add(Observable.fromCallable {
-        myDb.daoNote().delete(note) // Delete note
-    }.subscribeOn(Schedulers.computation())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-            // do something after data deleted
-            Log.d("respons", "data deleted")
-        })
+    CompositeDisposable().add(Observable.fromCallable { myDb.daoNote().delete(note) }
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                Log.d("respons", "data deleted")
+            })
 
 **4. Get all notes:**
 

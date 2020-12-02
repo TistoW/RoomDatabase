@@ -25,7 +25,7 @@ class CreateNoteActivity : AppCompatActivity() {
         mainButton()
     }
 
-    private fun mainButton(){
+    private fun mainButton() {
         btn_delete.setOnClickListener {
             insert()
         }
@@ -43,8 +43,7 @@ class CreateNoteActivity : AppCompatActivity() {
         note.description = edt_title.text.toString()
 
         // insert data
-        CompositeDisposable().add(
-            Observable.fromCallable {
+        CompositeDisposable().add(Observable.fromCallable {
             myDb.daoNote().insert(note) // Insert new note
         }.subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
